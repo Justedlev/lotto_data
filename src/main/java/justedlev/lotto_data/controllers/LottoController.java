@@ -24,6 +24,11 @@ public class LottoController {
     @Autowired
     LottoService service;
 
+    @GetMapping("/")
+    public String index() {
+        return "index.html";
+    }
+
     @PostMapping("/add/ticket")
     public ResponseEntity<?> addTicket(@RequestParam Integer number,
                                        @RequestParam Integer day,
