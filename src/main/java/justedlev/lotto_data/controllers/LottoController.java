@@ -25,7 +25,7 @@ public class LottoController {
     LottoService service;
 
     @PostMapping("/add/ticket")
-    public ResponseEntity<?> addTicket(@RequestParam(required = false) Integer number,
+    public ResponseEntity<?> addTicket(@RequestParam Integer number,
                                        @RequestParam Integer day,
                                        @RequestParam Integer month,
                                        @RequestParam Integer year,
@@ -34,10 +34,6 @@ public class LottoController {
                 .numberOfTicket(number)
                 .date(LocalDate.of(year, month, day))
                 .combination(numbers);
-        if(number == null) {
-            int lastNumber = service.getLastTicketNumber();
-            ticketBuilder.numberOfTicket(lastNumber + 1);
-        }
         TicketDTO ticket = ticketBuilder.build();
         service.addTicket(ticket);
         log.debug("Added new ticket to db: {}", ticket);

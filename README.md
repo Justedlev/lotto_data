@@ -1,19 +1,70 @@
-# Getting Started
+# LottoData API's
+Lotto Data
 
-### Reference Documentation
-For further reference, please consider the following sections:
+# **Lotto JSON:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.4/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.4/maven-plugin/reference/html/#build-image)
-* [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-mongodb)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-developing-web-applications)
+```json
+{
+  "numberOfTicket": "Integer",
+  "date": "Date in format 'd.M.yy' or 'dd.MM.yyyy'",
+  "combination": {
+    "first": "Integer",
+    "second": "Integer",
+    "third": "Integer",
+    "fourth": "Integer",
+    "fifth": "Integer",
+    "sixth": "Integer",
+    "strong": "Integer"
+  }
+}
+```
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### -> 1. POST {hostname}/add/ticket
+- Headers : -
+- Query Parameters:
+  - With param - `?number={Integer}&day={Integer}&month={Integer}&year={Integer}`
+- Body: Json:
+  ```json
+  {
+    "first": "Integer",
+    "second": "Integer",
+    "third": "Integer",
+    "fourth": "Integer",
+    "fifth": "Integer",
+    "sixth": "Integer",
+    "strong": "Integer"
+  }
+- Responses:
+    - `Status: 200 OK` - `Body` - List of JSON's: `*Lotto JSON`
 
-* [Accessing Data with MongoDB](https://spring.io/guides/gs/accessing-data-mongodb/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+    - `Status: 204 No Content`
 
+### -> 2. DELETE {hostname}/delete/ticket
+- Headers : -
+- Query Parameters:
+  - With param - `?number={Integer}` will remove a one ticket by number
+- Body: -
+- Responses:
+    - `Status: 200 OK` - `Body` - JSON: `*Lotto JSON`
+
+    - `Status: 204 No Content`
+
+### -> 3. GET {hostname}/get/ticket
+- Headers : -
+- Query Parameters:
+  - With param - `?number={Integer}` will return a one ticket by number
+- Body: -
+- Responses:
+  - `Status: 200 OK` - `Body` - JSON: `*Lotto JSON`
+
+  - `Status: 204 No Content`
+
+### -> 4. GET {hostname}/get/tickets
+- Headers : -
+- Query Parameters:
+  - With param - `?fromDate={Date in format 'd.M.yy' or 'dd.MM.yyyy'}&toDate={Date in format 'd.M.yy' or 'dd.MM.yyyy'}` will return a list of tickets by date range
+- Body: -
+- Responses:
+  - `Status: 200 OK` - `Body` - JSON: `*Lotto JSON`
+
+  - `Status: 204 No Content`
