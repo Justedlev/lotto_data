@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class TicketDTO {
 
     Integer numberOfTicket;
-    @JsonFormat(pattern="d.MM.yyyy")
+    @JsonFormat
     LocalDate date;
     SevenNumbersDTO combination;
 

@@ -18,7 +18,7 @@ public class TicketEntity {
 
     @Id
     Integer numberOfTicket;
-    @JsonFormat(pattern="d.MM.yyyy")
+    @JsonFormat
     LocalDate date;
     SevenNumbersEntity combination;
 

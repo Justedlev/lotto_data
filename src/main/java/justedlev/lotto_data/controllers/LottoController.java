@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -31,9 +30,9 @@ public class LottoController {
 
     @PostMapping("/add/ticket")
     public ResponseEntity<?> addTicket(@RequestBody TicketDTO ticket) {
-        service.addTicket(ticket);
-        log.debug("Added new ticket to db: {}", ticket);
-        return ResponseEntity.ok(String.format("Added new ticket to db: %s", ticket));
+        TicketDTO ticketDto = service.addTicket(ticket);
+        log.debug("Added new ticket to db: {}", ticketDto);
+        return ResponseEntity.ok(ticketDto);
     }
 
     @DeleteMapping("/delete/ticket")
@@ -54,12 +53,11 @@ public class LottoController {
     }
 
     @GetMapping("/get/tickets")
-    public ResponseEntity<?> getTickets(@RequestParam(required = false) String fromDate,
-                                        @RequestParam(required = false) String toDate) {
+    public ResponseEntity<?> getTickets(@RequestParam(required = false) LocalDate fromDate,
+                                        @RequestParam(required = false) LocalDate toDate) {
         List<TicketDTO> ticketList;
         if(fromDate != null && toDate != null) {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATA_FORMAT);
-            ticketList = service.getTicketsOfDateRange(LocalDate.parse(fromDate, dtf), LocalDate.parse(toDate, dtf));
+            ticketList = service.getTicketsOfDateRange(fromDate, toDate);
         } else {
             ticketList = service.getAllTickets();
         }
