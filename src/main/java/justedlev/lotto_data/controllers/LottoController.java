@@ -30,16 +30,7 @@ public class LottoController {
     }
 
     @PostMapping("/add/ticket")
-    public ResponseEntity<?> addTicket(@RequestParam Integer number,
-                                       @RequestParam Integer day,
-                                       @RequestParam Integer month,
-                                       @RequestParam Integer year,
-                                       @RequestBody SevenNumbersDTO numbers) {
-        TicketDTO.TicketDTOBuilder ticketBuilder = TicketDTO.builder()
-                .numberOfTicket(number)
-                .date(LocalDate.of(year, month, day))
-                .combination(numbers);
-        TicketDTO ticket = ticketBuilder.build();
+    public ResponseEntity<?> addTicket(@RequestBody TicketDTO ticket) {
         service.addTicket(ticket);
         log.debug("Added new ticket to db: {}", ticket);
         return ResponseEntity.ok(String.format("Added new ticket to db: %s", ticket));
