@@ -49,7 +49,7 @@ public class LottoController {
     public ResponseEntity<?> deteleTicket(@RequestParam Integer number) {
         TicketDTO ticket = service.removeTicket(number);
         log.debug("Removed ticket from db: {}", ticket);
-        return ResponseEntity.ok(String.format("Deleted ticket from db: %s", ticket));
+        return ResponseEntity.ok(ticket);
     }
 
     @GetMapping("/get/ticket")

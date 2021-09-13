@@ -20,21 +20,17 @@ public class LottoService implements ILotto {
     GameRepository repo;
 
     @Override
-    public void addTicket(TicketDTO ticket) {
-        repo.save(convertTicketDTOToEntity(ticket));
+    public TicketDTO addTicket(TicketDTO ticket) {
+        if(!repo.existsById(ticket.getNumberOfTicket())) {
+            repo.save(convertTicketDTOToEntity(ticket));
+            return ticket;
+        }
+        return null;
     }
 
     @Override
-    public Integer getLastTicketNumber() {
-        List<TicketEntity> list = repo.findAll().stream()
-                .sorted(Comparator.comparingInt(TicketEntity::getNumberOfTicket))
-                .collect(Collectors.toList());
-        return list.get(list.size() - 1).getNumberOfTicket();
-    }
-
-    @Override
-    public TicketDTO getTicket(Integer number) {
-        return convertTicketEntityToDTO(repo.findById(number).orElse(null));
+    public TicketDTO getTicket(Integer numberOfTicket) {
+        return convertTicketEntityToDTO(repo.findById(numberOfTicket).orElse(null));
     }
 
     @Override
@@ -52,8 +48,13 @@ public class LottoService implements ILotto {
     }
 
     @Override
-    public TicketDTO removeTicket(Integer number) {
-        return convertTicketEntityToDTO(repo.findById(number).orElse(null));
+    public TicketDTO removeTicket(Integer numberOfTicket) {
+        TicketDTO ticket = getTicket(numberOfTicket);
+        if(ticket != null) {
+            repo.deleteById(numberOfTicket);
+            return ticket;
+        }
+        return null;
     }
 
     private TicketDTO convertTicketEntityToDTO(TicketEntity entity) {

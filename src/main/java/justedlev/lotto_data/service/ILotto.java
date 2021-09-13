@@ -7,11 +7,10 @@ import java.util.List;
 
 public interface ILotto {
 
-    void addTicket(TicketDTO ticket);
-    Integer getLastTicketNumber();
-    TicketDTO getTicket(Integer number);
+    TicketDTO addTicket(TicketDTO ticket);
+    TicketDTO getTicket(Integer numberOfTicket);
     List<TicketDTO> getAllTickets();
     List<TicketDTO> getTicketsOfDateRange(LocalDate from, LocalDate to);
-    TicketDTO removeTicket(Integer number);
+    TicketDTO removeTicket(Integer numberOfTicket);
 
 }
