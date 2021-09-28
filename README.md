@@ -68,3 +68,13 @@ Lotto Data
   - `Status: 200 OK` - `Body` - JSON: `*Lotto JSON`
 
   - `Status: 204 No Content`
+
+### -> 5. GET {hostname}/get/repeatableNumbers
+- Headers : -
+- Query Parameters:
+  - With param - `?fromDate={Date in format 'd.M.yy' or 'dd.MM.yyyy'}&toDate={Date in format 'd.M.yy' or 'dd.MM.yyyy'}&numberCombination={Strings - first, second, third, fourth, fifth, sixth, strong}` will return a list of repeatable numbers of tickets by date range
+- Body: -
+- Responses:
+  - `Status: 200 OK` - `Body` - JSON: `*Lotto JSON`
+
+  - `Status: 204 No Content`
