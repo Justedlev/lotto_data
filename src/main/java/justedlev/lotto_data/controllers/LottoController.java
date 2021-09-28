@@ -57,8 +57,8 @@ public class LottoController {
     }
 
     @GetMapping("/get/tickets")
-    public ResponseEntity<?> getTickets(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+    public ResponseEntity<?> getTickets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
+                                        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
         List<TicketDTO> ticketList;
         if (fromDate != null && toDate != null) {
             ticketList = service.getTicketsOfDateRange(fromDate, toDate);
@@ -70,8 +70,8 @@ public class LottoController {
     }
 
     @GetMapping("/get/repeatableNumbers")
-    public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-                                                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
+                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate,
                                                             @RequestParam String numberCombination) {
         List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange;
         CombinationNames cn = CombinationNames.valueOf(numberCombination.toUpperCase());
