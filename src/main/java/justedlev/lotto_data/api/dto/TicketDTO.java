@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class TicketDTO {
 
-    Integer numberOfTicket;
+    Integer id;
     @JsonFormat
     LocalDate date;
     NumbersDTO combination;

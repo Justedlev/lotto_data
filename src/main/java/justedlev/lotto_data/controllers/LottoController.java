@@ -31,6 +31,7 @@ public class LottoController {
 
     @PostMapping("/add/ticket")
     public ResponseEntity<?> addTicket(@RequestBody TicketDTO ticket) {
+        log.debug("Received data: {}", ticket);
         TicketDTO ticketDto = service.addTicket(ticket);
         log.debug("Added new ticket to db: {}", ticketDto);
         return ResponseEntity.ok(ticketDto);
@@ -38,6 +39,7 @@ public class LottoController {
 
     @DeleteMapping("/delete/ticket")
     public ResponseEntity<?> deteleTicket(@RequestParam Integer number) {
+        log.debug("Received data: {}", number);
         TicketDTO ticket = service.removeTicket(number);
         log.debug("Removed ticket from db: {}", ticket);
         return ResponseEntity.ok(ticket);
@@ -45,6 +47,7 @@ public class LottoController {
 
     @GetMapping("/get/ticket")
     public ResponseEntity<?> getTicket(@RequestParam Integer number) {
+        log.debug("Received data: {}", number);
         TicketDTO ticket = service.getTicket(number);
         log.debug("Received ticket from db: {}", ticket);
         if (ticket == null) {
@@ -56,6 +59,7 @@ public class LottoController {
     @GetMapping("/get/tickets")
     public ResponseEntity<?> getTickets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
                                         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
+        log.debug("Received data: {}, {}", fromDate, toDate);
         List<TicketDTO> ticketList;
         if (fromDate != null && toDate != null) {
             ticketList = service.getTicketsOfDateRange(fromDate, toDate);
@@ -69,6 +73,7 @@ public class LottoController {
     @GetMapping("/get/repeatableNumbers")
     public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
                                                             @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
+        log.debug("Received data: {}, {}", fromDate, toDate);
         List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange = service.getRepeatableNumbersOfDateRange(fromDate, toDate);
         log.debug("Received tickets from db: {}", ticketRepeatableNumberOfDateRange);
         return ResponseEntity.ok(ticketRepeatableNumberOfDateRange);

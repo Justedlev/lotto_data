@@ -22,7 +22,8 @@ public class LottoService implements ILotto {
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {
-        if (!repo.existsById(ticket.getNumberOfTicket())) {
+        System.out.println(ticket);
+        if (!repo.existsById(ticket.getId())) {
             repo.save(convertTicketDTOToEntity(ticket));
             return ticket;
         }
@@ -57,7 +58,7 @@ public class LottoService implements ILotto {
 
     @Override
     public List<TicketDTO> getTicketsOfDateRange(LocalDate from, LocalDate to) {
-        return repo.findByDateBetween(from, to).stream()
+        return repo.findByDateBetween(from, to.plusDays(1)).stream()
                 .map(this::convertTicketEntityToDTO)
                 .collect(Collectors.toList());
     }
@@ -77,7 +78,7 @@ public class LottoService implements ILotto {
             return null;
         }
         return TicketDTO.builder()
-                .numberOfTicket(entity.getId())
+                .id(entity.getId())
                 .date(entity.getDate())
                 .combination(convertNumbersEntityToDTO(entity.getCombination()))
                 .build();
@@ -92,7 +93,7 @@ public class LottoService implements ILotto {
 
     private TicketEntity convertTicketDTOToEntity(TicketDTO ticket) {
         return TicketEntity.builder()
-                .id(ticket.getNumberOfTicket())
+                .id(ticket.getId())
                 .date(ticket.getDate())
                 .combination(convertNumbersDTOToEntity(ticket.getCombination()))
                 .build();
