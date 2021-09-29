@@ -1,6 +1,5 @@
 package justedlev.lotto_data.controllers;
 
-import justedlev.lotto_data.api.dto.CombinationNames;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
 import justedlev.lotto_data.service.LottoService;
@@ -71,41 +70,6 @@ public class LottoController {
     public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
                                                             @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
         List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange = service.getRepeatableNumbersOfDateRange(fromDate, toDate);
-        log.debug("Received tickets from db: {}", ticketRepeatableNumberOfDateRange);
-        return ResponseEntity.ok(ticketRepeatableNumberOfDateRange);
-    }
-
-    @GetMapping("/get/repeatableNumbers")
-    public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
-                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate,
-                                                            @RequestParam String numberCombination) {
-        List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange;
-        CombinationNames cn = CombinationNames.valueOf(numberCombination.toUpperCase());
-        switch (cn) {
-            case FIRST:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeFirst(fromDate, toDate);
-                break;
-            case SECOND:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeSecond(fromDate, toDate);
-                break;
-            case THIRD:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeThird(fromDate, toDate);
-                break;
-            case FOURTH:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeFourth(fromDate, toDate);
-                break;
-            case FIFTH:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeFifth(fromDate, toDate);
-                break;
-            case SIXTH:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeSixth(fromDate, toDate);
-                break;
-            case STRONG:
-                ticketRepeatableNumberOfDateRange = service.getRepeatableNumberOfDateRangeStrong(fromDate, toDate);
-                break;
-            default:
-                ticketRepeatableNumberOfDateRange = null;
-        }
         log.debug("Received tickets from db: {}", ticketRepeatableNumberOfDateRange);
         return ResponseEntity.ok(ticketRepeatableNumberOfDateRange);
     }

@@ -5,7 +5,6 @@ import justedlev.lotto_data.api.dto.TicketDTO;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface ILotto {
 
