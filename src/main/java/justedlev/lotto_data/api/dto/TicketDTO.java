@@ -16,6 +16,6 @@ public class TicketDTO {
     Integer numberOfTicket;
     @JsonFormat
     LocalDate date;
-    SevenNumbersDTO combination;
+    NumbersDTO combination;
 
 }

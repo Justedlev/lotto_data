@@ -17,9 +17,9 @@ import java.time.LocalDate;
 public class TicketEntity {
 
     @Id
-    Integer numberOfTicket;
+    Integer id;
     @JsonFormat
     LocalDate date;
-    SevenNumbersEntity combination;
+    NumbersEntity combination;
 
 }

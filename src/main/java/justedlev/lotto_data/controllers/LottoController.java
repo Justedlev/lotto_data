@@ -2,7 +2,6 @@ package justedlev.lotto_data.controllers;
 
 import justedlev.lotto_data.api.dto.CombinationNames;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
-import justedlev.lotto_data.api.dto.SevenNumbersDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
 import justedlev.lotto_data.service.LottoService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -67,6 +65,14 @@ public class LottoController {
         }
         log.debug("Received tickets from db: {}", ticketList);
         return ResponseEntity.ok(ticketList);
+    }
+
+    @GetMapping("/get/repeatableNumbers")
+    public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
+                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
+        List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange = service.getRepeatableNumbersOfDateRange(fromDate, toDate);
+        log.debug("Received tickets from db: {}", ticketRepeatableNumberOfDateRange);
+        return ResponseEntity.ok(ticketRepeatableNumberOfDateRange);
     }
 
     @GetMapping("/get/repeatableNumbers")

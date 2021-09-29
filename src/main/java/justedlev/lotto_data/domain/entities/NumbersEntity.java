@@ -3,6 +3,8 @@ package justedlev.lotto_data.domain.entities;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -10,14 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 @Builder
 @Document
-public class SevenNumbersEntity {
+public class NumbersEntity {
 
-    Integer first;
-    Integer second;
-    Integer third;
-    Integer fourth;
-    Integer fifth;
-    Integer sixth;
+    Set<Integer> sixNumbers;
     Integer strong;
 
 }
