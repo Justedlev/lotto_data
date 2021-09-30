@@ -1,5 +1,6 @@
 package justedlev.lotto_data.controllers;
 
+import justedlev.lotto_data.api.dto.CombinationNames;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
 import justedlev.lotto_data.service.LottoService;
@@ -72,11 +73,19 @@ public class LottoController {
 
     @GetMapping("/get/repeatableNumbers")
     public ResponseEntity<?> getRepeatableNumberOfDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate fromDate,
-                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate) {
-        log.debug("Received data: {}, {}", fromDate, toDate);
-        List<RepeatableNumberDTO> ticketRepeatableNumberOfDateRange = service.getRepeatableNumbersOfDateRange(fromDate, toDate);
-        log.debug("Received tickets from db: {}", ticketRepeatableNumberOfDateRange);
-        return ResponseEntity.ok(ticketRepeatableNumberOfDateRange);
+                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate toDate,
+                                                            @RequestParam String s) {
+        log.debug("Received data: {}, {}, {}", fromDate, toDate, s);
+        List<RepeatableNumberDTO> list;
+        if(CombinationNames.valueOf(s.toUpperCase()).equals(CombinationNames.ALL)) {
+            list = service.getRepeatableAllNumbersOfDateRange(fromDate, toDate);
+        } else if (CombinationNames.valueOf(s.toUpperCase()).equals(CombinationNames.STRONG)) {
+            list = service.getRepeatableStrongNumbersOfDateRange(fromDate, toDate);
+        } else {
+            list = null;
+        }
+        log.debug("Received tickets from db: {}", list);
+        return ResponseEntity.ok(list);
     }
 
     private ResponseEntity<?> noContent() {

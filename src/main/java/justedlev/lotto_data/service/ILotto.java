@@ -11,7 +11,8 @@ public interface ILotto {
     TicketDTO addTicket(TicketDTO ticket);
     TicketDTO getTicket(Integer numberOfTicket);
     List<TicketDTO> getAllTickets();
-    List<RepeatableNumberDTO> getRepeatableNumbersOfDateRange(LocalDate from, LocalDate to);
+    List<RepeatableNumberDTO> getRepeatableAllNumbersOfDateRange(LocalDate from, LocalDate to);
+    List<RepeatableNumberDTO> getRepeatableStrongNumbersOfDateRange(LocalDate from, LocalDate to);
     List<TicketDTO> getTicketsOfDateRange(LocalDate from, LocalDate to);
     TicketDTO removeTicket(Integer numberOfTicket);
 

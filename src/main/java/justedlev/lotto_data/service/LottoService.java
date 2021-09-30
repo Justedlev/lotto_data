@@ -43,17 +43,21 @@ public class LottoService implements ILotto {
     }
 
     @Override
-    public List<RepeatableNumberDTO> getRepeatableNumbersOfDateRange(LocalDate from, LocalDate to) {
+    public List<RepeatableNumberDTO> getRepeatableAllNumbersOfDateRange(LocalDate from, LocalDate to) {
         List<Integer> numbers = new ArrayList<>();
         getTicketsOfDateRange(from, to).stream()
                 .map((t) -> t.getCombination().getSixNumbers())
                 .collect(Collectors.toList())
                 .forEach(numbers::addAll);
-        List<RepeatableNumberDTO> repeatables = new ArrayList<>();
-        numbers.stream()
-                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
-                .forEach((n, c) -> repeatables.add(RepeatableNumberDTO.builder().number(n).count(c).build()));
-        return repeatables;
+        return getRepeatables(numbers);
+    }
+
+    @Override
+    public List<RepeatableNumberDTO> getRepeatableStrongNumbersOfDateRange(LocalDate from, LocalDate to) {
+        List<Integer> numbers = getTicketsOfDateRange(from, to).stream()
+                .map((t) -> t.getCombination().getStrong())
+                .collect(Collectors.toList());
+        return getRepeatables(numbers);
     }
 
     @Override
@@ -71,6 +75,14 @@ public class LottoService implements ILotto {
             return ticket;
         }
         return null;
+    }
+
+    private List<RepeatableNumberDTO> getRepeatables(List<Integer> list) {
+        List<RepeatableNumberDTO> repeatables = new ArrayList<>();
+        list.stream()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
+                .forEach((n, c) -> repeatables.add(RepeatableNumberDTO.builder().number(n).count(c).build()));
+        return repeatables;
     }
 
     private TicketDTO convertTicketEntityToDTO(TicketEntity entity) {
