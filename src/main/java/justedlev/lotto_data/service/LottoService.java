@@ -1,9 +1,12 @@
 package justedlev.lotto_data.service;
 
+import justedlev.lotto_data.api.dto.LoginDTO;
 import justedlev.lotto_data.api.dto.NumbersDTO;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
+import justedlev.lotto_data.domain.dao.AdminRepository;
 import justedlev.lotto_data.domain.dao.GameRepository;
+import justedlev.lotto_data.domain.entities.LoginEntity;
 import justedlev.lotto_data.domain.entities.NumbersEntity;
 import justedlev.lotto_data.domain.entities.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,20 @@ public class LottoService implements ILotto {
 
     @Autowired
     GameRepository repo;
+
+    @Autowired
+    AdminRepository adminrepo;
+
+    @Override
+    public String auth(LoginDTO login) {
+        System.out.println(login);
+        LoginEntity log_in = adminrepo.findById(login.getNickname() + "." + login.getPassword()).orElse(null);
+        if (log_in == null) {
+            return null;
+        }
+        System.out.println(log_in);
+        return login.getNickname().hashCode() + "." + login.getPassword().hashCode();
+    }
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {

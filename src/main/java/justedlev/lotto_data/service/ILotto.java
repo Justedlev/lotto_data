@@ -1,5 +1,6 @@
 package justedlev.lotto_data.service;
 
+import justedlev.lotto_data.api.dto.LoginDTO;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public interface ILotto {
 
+    String auth(LoginDTO login);
     TicketDTO addTicket(TicketDTO ticket);
     TicketDTO getTicket(Integer numberOfTicket);
     List<TicketDTO> getAllTickets();
