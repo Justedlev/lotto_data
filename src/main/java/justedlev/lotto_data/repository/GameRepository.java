@@ -1,6 +1,6 @@
-package justedlev.lotto_data.domain.dao;
+package justedlev.lotto_data.repository;
 
-import justedlev.lotto_data.domain.entities.TicketEntity;
+import justedlev.lotto_data.repository.entity.TicketEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;

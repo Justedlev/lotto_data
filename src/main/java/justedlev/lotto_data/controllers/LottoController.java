@@ -1,7 +1,6 @@
 package justedlev.lotto_data.controllers;
 
 import justedlev.lotto_data.api.dto.CombinationNames;
-import justedlev.lotto_data.api.dto.LoginDTO;
 import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
 import justedlev.lotto_data.api.dto.TicketDTO;
 import justedlev.lotto_data.service.LottoService;
@@ -30,13 +29,6 @@ public class LottoController {
     @GetMapping("/")
     public String index() {
         return "index.html";
-    }
-
-    @PostMapping("/auth")
-    public ResponseEntity<?> auth(@RequestBody LoginDTO login) {
-        String token = service.auth(login);
-        System.out.println(token);
-        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/add/ticket")

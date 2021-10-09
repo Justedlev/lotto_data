@@ -1,4 +1,4 @@
-package justedlev.lotto_data.domain.entities;
+package justedlev.lotto_data.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

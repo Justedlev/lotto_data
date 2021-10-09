@@ -1,4 +1,4 @@
-package justedlev.lotto_data.domain.entities;
+package justedlev.lotto_data.repository.entity;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
