@@ -6,6 +6,8 @@ import justedlev.lotto_data.api.dto.TicketDTO;
 import justedlev.lotto_data.repository.GameRepository;
 import justedlev.lotto_data.repository.entity.NumbersEntity;
 import justedlev.lotto_data.repository.entity.TicketEntity;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class LottoService implements ILotto {
 
@@ -22,7 +25,7 @@ public class LottoService implements ILotto {
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {
-        System.out.println(ticket);
+        log.info("Received data : {}", ticket);
         if (!repo.existsById(ticket.getId())) {
             repo.save(convertTicketDTOToEntity(ticket));
             return ticket;
