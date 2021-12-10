@@ -49,7 +49,7 @@ public class LottoService implements ILotto {
     public List<RepeatableNumberDTO> getRepeatableAllNumbersOfDateRange(LocalDate from, LocalDate to) {
         List<Integer> numbers = new ArrayList<>();
         getTicketsOfDateRange(from, to).stream()
-                .map((t) -> t.getCombination().getSixNumbers())
+                .map(t -> t.getCombination().getSixNumbers())
                 .collect(Collectors.toList())
                 .forEach(numbers::addAll);
         return getRepeatables(numbers);
@@ -58,7 +58,7 @@ public class LottoService implements ILotto {
     @Override
     public List<RepeatableNumberDTO> getRepeatableStrongNumbersOfDateRange(LocalDate from, LocalDate to) {
         List<Integer> numbers = getTicketsOfDateRange(from, to).stream()
-                .map((t) -> t.getCombination().getStrong())
+                .map(t -> t.getCombination().getStrong())
                 .collect(Collectors.toList());
         return getRepeatables(numbers);
     }
