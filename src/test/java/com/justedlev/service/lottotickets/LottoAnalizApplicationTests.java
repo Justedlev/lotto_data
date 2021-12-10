@@ -1,4 +1,4 @@
-package justedlev.lotto_data;
+package com.justedlev.service.lottotickets;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

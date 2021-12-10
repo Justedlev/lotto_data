@@ -1,12 +1,11 @@
-package justedlev.lotto_data.service;
+package com.justedlev.service.lottotickets.service;
 
-import justedlev.lotto_data.api.dto.NumbersDTO;
-import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
-import justedlev.lotto_data.api.dto.TicketDTO;
-import justedlev.lotto_data.repository.GameRepository;
-import justedlev.lotto_data.repository.entity.NumbersEntity;
-import justedlev.lotto_data.repository.entity.TicketEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.justedlev.service.lottotickets.api.dto.NumbersDTO;
+import com.justedlev.service.lottotickets.api.dto.RepeatableNumberDTO;
+import com.justedlev.service.lottotickets.api.dto.TicketDTO;
+import com.justedlev.service.lottotickets.repository.GameRepository;
+import com.justedlev.service.lottotickets.repository.entity.NumbersEntity;
+import com.justedlev.service.lottotickets.repository.entity.TicketEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,10 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class LottoService implements ILotto {
+public class LottoTicketsService implements ILottoTickets {
 
-    @Autowired
-    GameRepository repo;
+    private final GameRepository repo;
+
+    public LottoTicketsService(GameRepository repo) {
+        this.repo = repo;
+    }
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {

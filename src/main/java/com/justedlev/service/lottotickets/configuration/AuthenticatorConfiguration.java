@@ -1,8 +1,7 @@
-package justedlev.lotto_data.configuration;
+package com.justedlev.service.lottotickets.configuration;
 
-import justedlev.lotto_data.repository.UsersRepository;
-import justedlev.lotto_data.repository.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.justedlev.service.lottotickets.repository.UsersRepository;
+import com.justedlev.service.lottotickets.repository.entity.UserEntity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -16,8 +15,11 @@ import java.util.List;
 @Configuration
 public class AuthenticatorConfiguration implements UserDetailsService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
+
+    public AuthenticatorConfiguration(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

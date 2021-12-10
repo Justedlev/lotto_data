@@ -1,6 +1,6 @@
-package justedlev.lotto_data.repository;
+package com.justedlev.service.lottotickets.repository;
 
-import justedlev.lotto_data.repository.entity.TicketEntity;
+import com.justedlev.service.lottotickets.repository.entity.TicketEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;

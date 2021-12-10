@@ -1,4 +1,4 @@
-package justedlev.lotto_data.repository.entity;
+package com.justedlev.service.lottotickets.repository.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
