@@ -6,6 +6,7 @@ import com.justedlev.service.lottotickets.api.dto.TicketDTO;
 import com.justedlev.service.lottotickets.repository.GameRepository;
 import com.justedlev.service.lottotickets.repository.entity.NumbersEntity;
 import com.justedlev.service.lottotickets.repository.entity.TicketEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class LottoTicketsService implements ILottoTickets {
 
@@ -24,7 +26,7 @@ public class LottoTicketsService implements ILottoTickets {
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {
-        System.out.println(ticket);
+        log.info("Received data : {}", ticket);
         if (!repo.existsById(ticket.getId())) {
             repo.save(convertTicketDTOToEntity(ticket));
             return ticket;
@@ -48,7 +50,7 @@ public class LottoTicketsService implements ILottoTickets {
     public List<RepeatableNumberDTO> getRepeatableAllNumbersOfDateRange(LocalDate from, LocalDate to) {
         List<Integer> numbers = new ArrayList<>();
         getTicketsOfDateRange(from, to).stream()
-                .map((t) -> t.getCombination().getSixNumbers())
+                .map(t -> t.getCombination().getSixNumbers())
                 .collect(Collectors.toList())
                 .forEach(numbers::addAll);
         return getRepeatables(numbers);
@@ -57,7 +59,7 @@ public class LottoTicketsService implements ILottoTickets {
     @Override
     public List<RepeatableNumberDTO> getRepeatableStrongNumbersOfDateRange(LocalDate from, LocalDate to) {
         List<Integer> numbers = getTicketsOfDateRange(from, to).stream()
-                .map((t) -> t.getCombination().getStrong())
+                .map(t -> t.getCombination().getStrong())
                 .collect(Collectors.toList());
         return getRepeatables(numbers);
     }
