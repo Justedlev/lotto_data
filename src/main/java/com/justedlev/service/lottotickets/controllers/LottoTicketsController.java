@@ -1,11 +1,10 @@
-package justedlev.lotto_data.controllers;
+package com.justedlev.service.lottotickets.controllers;
 
-import justedlev.lotto_data.api.dto.CombinationNames;
-import justedlev.lotto_data.api.dto.RepeatableNumberDTO;
-import justedlev.lotto_data.api.dto.TicketDTO;
-import justedlev.lotto_data.service.LottoService;
+import com.justedlev.service.lottotickets.api.dto.CombinationNames;
+import com.justedlev.service.lottotickets.api.dto.RepeatableNumberDTO;
+import com.justedlev.service.lottotickets.api.dto.TicketDTO;
+import com.justedlev.service.lottotickets.service.LottoTicketsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,16 @@ import java.util.List;
 @Slf4j
 @Controller
 @CrossOrigin
-public class LottoController {
+public class LottoTicketsController {
 
-    @Value("$justedlev.lotto_data.dataformot:yyyy-M-d")
+    @Value("$com.justedlev.service.lotto_data.dataformot:yyyy-M-d")
     static public String DATA_FORMAT;
 
-    @Autowired
-    LottoService service;
+    private final LottoTicketsService service;
+
+    public LottoTicketsController(LottoTicketsService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String index() {

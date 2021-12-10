@@ -8,10 +8,10 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>justedlev</groupId>
-	<artifactId>lotto_data</artifactId>
+	<groupId>com.justedlev.service.lotto_data.justedlev.services</groupId>
+	<artifactId>lotto-tickets-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lotto_data</name>
+	<name>lotto-tickets-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

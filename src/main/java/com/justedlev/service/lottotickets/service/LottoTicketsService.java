@@ -8,45 +8,38 @@ import justedlev.lotto_data.repository.entity.NumbersEntity;
 import justedlev.lotto_data.repository.entity.TicketEntity;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class LottoService implements ILotto {
 
-    private final GameRepository repo;
-
-    public LottoService(GameRepository repository) {
-        this.repo = repository;
-    }
+    @Autowired
+    GameRepository repo;
 
     @Override
     public TicketDTO addTicket(TicketDTO ticket) {
         log.info("Received data : {}", ticket);
         if (!repo.existsById(ticket.getId())) {
-            log.info("Saving data in db : {}", ticket);
             repo.save(convertTicketDTOToEntity(ticket));
             return ticket;
         }
-        log.info("Ticket ({}) already exist in db", ticket);
         return null;
     }
 
     @Override
     public TicketDTO getTicket(Integer numberOfTicket) {
-        log.info("Getting ticket from db by number of tocket : {}", numberOfTicket);
         return convertTicketEntityToDTO(repo.findById(numberOfTicket).orElse(null));
     }
 
     @Override
     public List<TicketDTO> getAllTickets() {
-        log.info("Getting all data from db");
         return repo.findAll().stream()
                 .map(this::convertTicketEntityToDTO)
                 .collect(Collectors.toList());
@@ -59,7 +52,6 @@ public class LottoService implements ILotto {
                 .map(t -> t.getCombination().getSixNumbers())
                 .collect(Collectors.toList())
                 .forEach(numbers::addAll);
-        log.info("Received repeatable numbers from data={} and to data={} from db", from, to);
         return getRepeatables(numbers);
     }
 
@@ -68,13 +60,11 @@ public class LottoService implements ILotto {
         List<Integer> numbers = getTicketsOfDateRange(from, to).stream()
                 .map(t -> t.getCombination().getStrong())
                 .collect(Collectors.toList());
-        log.info("Received repeatable numbers from data={} and to data={} from db", from, to);
         return getRepeatables(numbers);
     }
 
     @Override
     public List<TicketDTO> getTicketsOfDateRange(LocalDate from, LocalDate to) {
-        log.info("Received tickets from data={} and to data={} from db", from, to);
         return repo.findByDateBetween(from, to.plusDays(1)).stream()
                 .map(this::convertTicketEntityToDTO)
                 .collect(Collectors.toList());
@@ -83,12 +73,11 @@ public class LottoService implements ILotto {
     @Override
     public TicketDTO removeTicket(Integer numberOfTicket) {
         TicketDTO ticket = getTicket(numberOfTicket);
-        if (Objects.isNull(ticket)) {
-            return null;
+        if (ticket != null) {
+            repo.deleteById(numberOfTicket);
+            return ticket;
         }
-        log.info("Removing ticket from db : {}", ticket);
-        repo.deleteById(numberOfTicket);
-        return ticket;
+        return null;
     }
 
     private List<RepeatableNumberDTO> getRepeatables(List<Integer> list) {
@@ -100,7 +89,7 @@ public class LottoService implements ILotto {
     }
 
     private TicketDTO convertTicketEntityToDTO(TicketEntity entity) {
-        if (Objects.isNull(entity)) {
+        if (entity == null) {
             return null;
         }
         return TicketDTO.builder()

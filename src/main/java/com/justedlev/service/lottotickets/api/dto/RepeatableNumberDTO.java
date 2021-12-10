@@ -1,4 +1,4 @@
-package justedlev.lotto_data.api.dto;
+package com.justedlev.service.lottotickets.api.dto;
 
 import lombok.*;
 
